@@ -147,6 +147,7 @@ function complexity(filePath) {
 				}
 			});
 			builder.SimpleCyclomaticComplexity += 1; //this adds 1 to Simple CC even if there are 0 counted by the end of the program, but it should only do so if Simple CC is non-zero.
+			//Would be better if you commented in case you decide to implement above suggestion
 
 			builder.FunctionName = functionName(node);
 			builder.StartLine = node.loc.start.line;
