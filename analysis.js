@@ -17,7 +17,10 @@ function main() {
 		var builder = builders[node];
 		builder.report();
 	}
+
 }
+
+
 
 var builders = {};
 
@@ -72,6 +75,8 @@ function FileBuilder() {
 // A function following the Visitor pattern.
 // Annotates nodes with parent objects.
 function traverseWithParents(object, visitor) {
+
+
 	var key, child;
 
 	visitor.call(null, object);
@@ -94,13 +99,11 @@ function decisionCounter(node) {
 	var max = 0;
 	ifStatement = false;
 
+
 	traverseWithParents(node, function (node) {
-		if (node.type === "IfStatement"){
-			ifStatement = true;
-		}
-		if (node.type === "LogicalExpression" && (node.operator === "&&" || node.operator === "||")){
+		if (node.type === "IfStatement") ifStatement = true;
+		if (node.type === "LogicalExpression" && (node.operator === "&&" || node.operator === "||"))
 			max++;
-		}
 	});
 
 	if (max === 0 && ifStatement) {
@@ -117,6 +120,8 @@ function complexity(filePath) {
 	//counts string
 	var stringCount = (JSON.stringify(ast).match(/Literal/g) || []).length;
 	//fileBuilder.Strings = stringCount;
+
+
 
 	// A file level-builder:
 	var fileBuilder = new FileBuilder();
@@ -146,16 +151,29 @@ function complexity(filePath) {
 					}
 				}
 			});
-			builder.SimpleCyclomaticComplexity += 1; //this adds 1 to Simple CC even if there are 0 counted by the end of the program, but it should only do so if Simple CC is non-zero.
+			builder.SimpleCyclomaticComplexity += 1;
+
 
 			builder.FunctionName = functionName(node);
 			builder.StartLine = node.loc.start.line;
 
 			builder.MaxConditions = max;
 
+
+
 			builders[builder.FunctionName] = builder;
+
+
+
 		}
+
+
+
+
+
+
 	});
+
 }
 
 // Helper function for counting children of node.
